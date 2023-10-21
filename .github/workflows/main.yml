@@ -6,14 +6,14 @@ on:
   #Permite disparar manualmente a pipeline
 jobs:
   CI:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Baixar o repositorio
       run: echo "baixando repositorio"
 
   CD:
     runs-on: ubuntu-latest
-      steps:
-      - name: Fazendo o deploy
+    steps:
+    - name: Fazendo o deploy
       run: echo "Fazendo o deploy"    
     
