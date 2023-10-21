@@ -47,7 +47,7 @@ jobs:
     - name: Baixar o repositorio
       uses: actions/checkout@v4.1.1
 
-    - name: "Configurar AWS credenciais"      
+    - name: "Credenciar na AWS"      
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-region: sa-east-1
