@@ -38,7 +38,7 @@ jobs:
         file: ./kube-news/src/Dockerfile
         push: true
         tags:             #Função de autoincremento do proprio github
-          mafessoni/kube-news:${{ github.run_number }}
+          mafessoni/kube-news:v${{ github.run_number }}
           # mafessoni/kube-news:latest
             
     - name: Baixar o repositorio
