@@ -8,6 +8,13 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+    # Tem que baixar o repositorio primeiro!
+    - name: Baixar o repositorio
+      uses: actions/checkout@v4.1.1
+      
+      # Caso utilizasse outro repositorio
+      # with:
+      #   repository: # optional, default is ${{ github.repository }}
 
     - name: Docker Login
       uses: docker/login-action@v3.0.0      
