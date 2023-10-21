@@ -53,7 +53,15 @@ jobs:
         aws-region: sa-east-1
         aws-access-key-id: ${{ secrets.AWS_KEYID }}
         aws-secret-access-key: ${{ secrets.AWS_ACCESSKEY }}
-      
-    - name: Fazendo o deploy
-      run: echo "Fazendo o deploy"
+
+    - name: "Configurando kubeconfig"
+      run: aws eks update-kubeconfig --name imersao --region sa-east-1
     
+    - name: Fazendo o deploy no kubernetes
+      uses: Azure/k8s-deploy@v4.9
+      with:
+        manifests: 
+          .kube-news/k8s/deployments.yaml
+        images: |
+          mafessoni/kube-news:v${{ github.run_number }}
+        # Setando a  imagem criado pelo CI
