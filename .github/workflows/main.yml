@@ -39,9 +39,8 @@ jobs:
         push: true
         tags:             #Função de autoincremento do proprio github
           mafessoni/kube-news:${{ github.run_number }}
-          mafessoni/kube-news:latest
-        
-    
+          # mafessoni/kube-news:latest
+            
     - name: Baixar o repositorio
       run: echo "Baixando repositorio"
       
