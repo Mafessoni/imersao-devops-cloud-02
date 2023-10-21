@@ -56,13 +56,13 @@ jobs:
     - name: "Credenciar na AWS"      
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-region: sa-east-1
+        aws-region: us-east-1
         aws-access-key-id: ${{ secrets.AWS_KEYID }}
         aws-secret-access-key: ${{ secrets.AWS_ACCESSKEY }}
         
     # Passar o nome do teu cluster
     - name: "Configurando kubeconfig"
-      run: aws eks update-kubeconfig --name imersao --region sa-east-1
+      run: aws eks update-kubeconfig --name atxweb-eks --region us-east-1
 
     #Action: Deploy to Kubernetes cluster
     - name: Fazendo o deploy no kubernetes
