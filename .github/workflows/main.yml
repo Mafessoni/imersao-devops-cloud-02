@@ -8,6 +8,20 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+
+    - name: Docker Login
+      uses: docker/login-action@v3.0.0      
+      # Opção para fazer login diretamente
+      # with:      
+      #   registry: repositorio
+      #   username: usuario
+      #   password: senha
+      
+      # Opção utlizando secrets do github
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_PASS }}
+    
     - name: Baixar o repositorio
       run: echo "Baixando repositorio"
       
@@ -19,6 +33,7 @@ jobs:
 
   CD:
     runs-on: ubuntu-latest
+    needs: [CI]
     steps:
     - name: Fazendo o deploy
       run: echo "Fazendo o deploy"    
