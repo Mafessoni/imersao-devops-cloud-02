@@ -9,7 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Baixar o repositorio
-      run: echo "baixando repositorio"
+      run: echo "Baixando repositorio"
+      
+    - name: Criar image do container
+      run: echo "Criando image"
+
+    - name: Push na image
+      run: echo "Enviando image para o repositorio"
 
   CD:
     runs-on: ubuntu-latest
