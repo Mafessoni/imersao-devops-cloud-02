@@ -8,6 +8,7 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+    #Action: Checkout
     # Tem que baixar o repositorio primeiro!
     - name: Baixar o repositorio
       uses: actions/checkout@v4.1.1
@@ -15,7 +16,8 @@ jobs:
       # Caso utilizasse outro repositorio
       # with:
       #   repository: # optional, default is ${{ github.repository }}
-
+      
+    #Action: Docker Login
     - name: Docker Login
       uses: docker/login-action@v3.0.0
       # Opção para fazer login diretamente
@@ -29,6 +31,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_PASS }}
 
+    #Action: Build and push Docker images
     - name: Build and push Docker images
       uses: docker/build-push-action@v5.0.0
       with:
@@ -41,27 +44,34 @@ jobs:
           
   CD:
     runs-on: ubuntu-latest      
+    #Cria dependencia ao CI
     needs: [CI]    
     steps:
+    #Action: Checkout
     # Tem que baixar o repositorio primeiro em todas os JOBS!
     - name: Baixar o repositorio
       uses: actions/checkout@v4.1.1
 
+    #Action: "Configure AWS Credentials" Action for GitHub Actions
     - name: "Credenciar na AWS"      
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-region: sa-east-1
         aws-access-key-id: ${{ secrets.AWS_KEYID }}
         aws-secret-access-key: ${{ secrets.AWS_ACCESSKEY }}
-
+        
+    # Passar o nome do teu cluster
     - name: "Configurando kubeconfig"
       run: aws eks update-kubeconfig --name imersao --region sa-east-1
-    
+
+    #Action: Deploy to Kubernetes cluster
     - name: Fazendo o deploy no kubernetes
       uses: Azure/k8s-deploy@v4.9
       with:
         manifests: 
           .kube-news/k8s/deployments.yaml
+        
+        # Setando a  imagem criado pelo CI
         images: |
           mafessoni/kube-news:v${{ github.run_number }}
-        # Setando a  imagem criado pelo CI
+        
