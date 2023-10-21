@@ -37,7 +37,7 @@ jobs:
         push: true
         tags:             #Função de autoincremento do proprio github
           mafessoni/kube-news:v${{ github.run_number }}
-          mafessoni/kube-news:latest
+          # mafessoni/kube-news:latest
           
   CD:
     runs-on: ubuntu-latest      
